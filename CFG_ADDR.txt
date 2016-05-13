@@ -1,0 +1,34 @@
+$$Author Hearmen
+$$This script can find out addresses witch can bypass cfg check
+$$Usage $$><CFG_ADDR.txt arg1 arg2 arg3
+
+$$ arg1 : bitmap commit page start
+$$ arg2 : bitmap commit page end
+$$ arg3 : bitmap start
+
+r $t0 = $arg1
+r $t1 = $arg2
+r $t8 = $arg3
+.for ( r $t2 =@$t0; @$t2< @$t1; r $t2 = @$t2 +4)
+{
+	.if(poi(@$t2))
+	{
+		r? $t3 = ((@$t2 - @$t8)/4 << 8)
+		r $t4 = poi(@$t2)
+		.for(r $t5=0; @$t5<32; r? $t5 =@$t5 +1 )
+		{
+			.if((@$t4 >> @$t5)& 1)
+			{
+				r? $t6 = ((@$t3>>3) + @$t5) <<3
+				.if(@$t5 %2 == 1)
+				{
+					.printf "addr: %p +\n",@$t6
+					r? $t6 = ((@$t3>>3) + (@$t5-1)) <<3
+					.printf "addr: %p -\n",@$t6
+					.continue
+				}
+				.printf "addr: %p \n",@$t6
+			}
+		}
+	}
+}
