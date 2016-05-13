@@ -1,7 +1,4 @@
-$$Author Hearmen
-$$This script can find out addresses witch can bypass cfg check
-$$Usage $$><CFG_ADDR.txt arg1 arg2 arg3
-
+$$ Author Hearmen
 $$ arg1 : bitmap commit page start
 $$ arg2 : bitmap commit page end
 $$ arg3 : bitmap start
