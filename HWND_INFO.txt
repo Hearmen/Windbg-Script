@@ -1,0 +1,29 @@
+$$ Author Hearmen
+$$ arg1 : HWND
+
+
+r $t0 = $arg1
+r $t1 = USER32!gSharedInfo
+r $t8 = @$teb
+
+r? $t2 = @$t0 & 0x0000ffff
+
+r $t3 = poi(@$t1+0x4)
+r $t4 = poi(@$t1+0x8)
+r? $t3 = @$t3 + @$t2 * @$t4
+
+r $t3 = poi(@$t3)
+r $t4 = poi(@$t8 + 0x6e8)
+r? $t2 = @$t3 - @$t4
+.printf "Window : %p\n", @$t2; 
+.if(poi(@$t2 + 0x84))
+{
+   r? $t3 = @$t2 + 0x8c
+   .printf "Window Name: %mu\n", poi(@$t3);   
+}
+r $t3 = poi(@$t2 + 0x64)
+r? $t5 = @$t3 - @$t4
+.printf "Window class : %p\n", @$t5; 
+r $t3 = poi(@$t5 + 0x54)
+r? $t3 = @$t3 - @$t4
+.printf "Window class Name: %ma\n", @$t3;   
