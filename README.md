@@ -9,5 +9,10 @@
 
     This script can find out window information by HWND
     Usage:  $$>a<HWND_INFO.txt hwnd_name
+	
+- **V8_OBJ_TYPE**
+
+	This script can find out the object type of the pointer
+    Usage:  $$>a<V8_OBJ_TYPE.txt pointer sys_type
 
 

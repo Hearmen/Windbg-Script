@@ -1,0 +1,12 @@
+
+r $t0 = mshtml
+r $t1 = mshtml + 01385000
+
+ .foreach(place {s -[1]b 575b0000 58935000 ff 24 9d})
+{
+	r $t2 = poi(${place}+3)
+	.foreach(addr_info {!address @$t2})
+	{
+
+	}
+}  

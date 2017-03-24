@@ -1,0 +1,39 @@
+$$ Author Hearmen
+$$ arg1 : Object Addr
+$$ arg2	: System bit x86 0, x64 1
+
+$$  
+$$
+$$
+$$
+
+r $t0 = $arg1
+r $t1 = $arg2
+
+.if(@$t1 == 0)
+{
+	r? $t0 = @$t0 & 0x0`fffffffe
+	
+	$$ get instance type
+	r? $t2 = @$t0+8
+	r $t2 = poi(@$t2) 
+	r? $t2 = @$t2 & 0x000000ff
+	
+	$$ validate map object
+	r $t3 = poi(@$t0) 
+	r? $t3 = @$t3 & 0x0`fffffffe  
+	r $t4 = poi(@$t3+8) 
+	r $t4 = @$t4 & 0x000000ff
+	.if(@$t4 == 0x84)
+	{
+		.printf "addr : %p type is %p \n",$t0,$t2
+	}
+	.else
+	{
+		.printf "addr : %p is not a object!\n",$arg1
+	}
+}
+.else
+{
+	.printf "Wait......"
+}
